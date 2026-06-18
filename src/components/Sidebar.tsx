@@ -185,7 +185,7 @@ export function Sidebar(props: SidebarProps) {
             <div style={css.btnGroup}>
               {WORKLOADS.map((w) => (
                 <button key={w.type} onClick={() => onWorkloadChange(w.type)}
-                  style={{ ...css.toggleBtn, ...(workloadType === w.type ? css.toggleBtnActive : {}), fontSize: 8, padding: '2px 5px' }}>
+                  style={{ ...css.toggleBtn, ...(workloadType === w.type ? css.toggleBtnActive : {}), fontSize: 10, padding: '4px 8px' }}>
                   {w.label}
                 </button>
               ))}
@@ -319,7 +319,7 @@ export function Sidebar(props: SidebarProps) {
           </div>
         )}
         {openSections.has('cla') && !activeScenario && (
-          <div style={{ ...css.sectionContent, color: 'rgba(255,255,255,0.3)', fontSize: 10 }}>
+          <div style={{ ...css.sectionContent, color: 'rgba(255,255,255,0.35)', fontSize: 12 }}>
             Select a scenario to view CLA analysis
           </div>
         )}
@@ -382,44 +382,44 @@ function orbitColorStr(orbit: string): string {
 const css: Record<string, React.CSSProperties> = {
   container: {
     position: 'absolute', top: 0, left: 0, bottom: 0,
-    width: 340, background: 'rgba(8, 8, 12, 0.95)',
+    width: 400, background: 'rgba(8, 8, 12, 0.95)',
     backdropFilter: 'blur(20px)',
     borderRight: '1px solid rgba(255,255,255,0.06)',
     display: 'flex', flexDirection: 'column',
-    fontFamily: '"DM Mono", monospace', fontSize: 10,
-    color: 'rgba(255,255,255,0.6)', zIndex: 30,
+    fontFamily: '"DM Mono", monospace', fontSize: 13,
+    color: 'rgba(255,255,255,0.65)', zIndex: 30,
     userSelect: 'none',
   },
   collapsed: {
     position: 'absolute', top: 12, left: 12, zIndex: 30,
   },
   expandBtn: {
-    display: 'flex', alignItems: 'center', gap: 6,
+    display: 'flex', alignItems: 'center', gap: 8,
     background: 'rgba(8,8,12,0.9)', backdropFilter: 'blur(8px)',
     border: '1px solid rgba(255,255,255,0.08)', borderRadius: 6,
-    padding: '8px 14px', cursor: 'pointer',
-    fontFamily: '"DM Mono", monospace', fontSize: 10,
+    padding: '10px 16px', cursor: 'pointer',
+    fontFamily: '"DM Mono", monospace', fontSize: 12,
     color: 'rgba(255,255,255,0.5)',
   },
-  expandIcon: { fontSize: 8 },
-  expandLabel: { letterSpacing: 2, fontSize: 9 },
+  expandIcon: { fontSize: 10 },
+  expandLabel: { letterSpacing: 2, fontSize: 11 },
   header: {
     display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-    padding: '16px 16px 12px',
-    borderBottom: '1px solid rgba(255,255,255,0.04)',
+    padding: '18px 20px 14px',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
   },
   title: {
-    fontFamily: '"Inter", sans-serif', fontSize: 14, fontWeight: 600,
-    letterSpacing: 3, color: 'rgba(255,255,255,0.7)',
+    fontFamily: '"Inter", sans-serif', fontSize: 16, fontWeight: 600,
+    letterSpacing: 3, color: 'rgba(255,255,255,0.75)',
   },
   titleSub: {
-    fontFamily: '"Inter", sans-serif', fontSize: 14, fontWeight: 600,
+    fontFamily: '"Inter", sans-serif', fontSize: 16, fontWeight: 600,
     letterSpacing: 3, color: 'rgba(255,215,0,0.6)',
   },
   collapseBtn: {
     background: 'transparent', border: 'none',
-    color: 'rgba(255,255,255,0.3)', fontSize: 10, cursor: 'pointer',
-    padding: '4px 6px',
+    color: 'rgba(255,255,255,0.3)', fontSize: 12, cursor: 'pointer',
+    padding: '4px 8px',
   },
   scrollArea: {
     flex: 1, overflowY: 'auto', overflowX: 'hidden',
@@ -428,52 +428,52 @@ const css: Record<string, React.CSSProperties> = {
   },
   metricsStrip: {
     display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
-    gap: 2, padding: '10px 16px',
-    borderBottom: '1px solid rgba(255,255,255,0.04)',
+    gap: 4, padding: '14px 20px',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
   },
   metricItem: {
-    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1,
+    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3,
   },
   metricVal: {
-    fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.8)',
+    fontSize: 15, fontWeight: 500, color: 'rgba(255,255,255,0.85)',
     fontVariantNumeric: 'tabular-nums',
   },
-  metricLabel: { fontSize: 7, color: 'rgba(255,255,255,0.25)', letterSpacing: 0.5 },
+  metricLabel: { fontSize: 10, color: 'rgba(255,255,255,0.35)', letterSpacing: 0.5 },
   horizonsBar: {
-    display: 'flex', margin: '10px 16px 0', height: 14, borderRadius: 3, overflow: 'hidden',
+    display: 'flex', margin: '12px 20px 0', height: 20, borderRadius: 4, overflow: 'hidden',
   },
   horizonSegment: {
     display: 'flex', alignItems: 'center', justifyContent: 'center',
-    fontSize: 7, fontWeight: 500, letterSpacing: 1,
+    fontSize: 10, fontWeight: 500, letterSpacing: 1,
     transition: 'all 0.3s',
   },
   horizonDesc: {
-    padding: '4px 16px 8px', fontSize: 8, color: 'rgba(255,255,255,0.35)', lineHeight: '1.4',
-    borderBottom: '1px solid rgba(255,255,255,0.04)',
+    padding: '6px 20px 10px', fontSize: 11, color: 'rgba(255,255,255,0.4)', lineHeight: '1.5',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
   },
   controlGroup: {
-    padding: '10px 16px',
-    borderBottom: '1px solid rgba(255,255,255,0.04)',
+    padding: '14px 20px',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
   },
   controlRow: {
-    display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6,
+    display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10,
   },
   controlLabel: {
-    fontSize: 9, color: 'rgba(255,255,255,0.35)', minWidth: 50,
+    fontSize: 12, color: 'rgba(255,255,255,0.4)', minWidth: 60,
   },
   controlVal: {
-    fontSize: 11, color: '#FFD700', minWidth: 30, textAlign: 'right' as const,
+    fontSize: 13, color: '#FFD700', minWidth: 36, textAlign: 'right' as const,
     fontVariantNumeric: 'tabular-nums',
   },
   slider: {
-    flex: 1, height: 3, accentColor: '#FFD700', cursor: 'pointer',
+    flex: 1, height: 4, accentColor: '#FFD700', cursor: 'pointer',
   },
-  btnGroup: { display: 'flex', gap: 2 },
+  btnGroup: { display: 'flex', gap: 4 },
   toggleBtn: {
-    background: 'transparent', border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: 3, color: 'rgba(255,255,255,0.35)',
-    fontFamily: '"DM Mono", monospace', fontSize: 9,
-    padding: '2px 8px', cursor: 'pointer', transition: 'all 0.2s',
+    background: 'transparent', border: '1px solid rgba(255,255,255,0.12)',
+    borderRadius: 4, color: 'rgba(255,255,255,0.4)',
+    fontFamily: '"DM Mono", monospace', fontSize: 11,
+    padding: '4px 10px', cursor: 'pointer', transition: 'all 0.2s',
   },
   toggleBtnActive: {
     background: 'rgba(255,215,0,0.12)', borderColor: 'rgba(255,215,0,0.3)',
@@ -481,122 +481,122 @@ const css: Record<string, React.CSSProperties> = {
   },
   sectionBtn: {
     width: '100%', display: 'flex', justifyContent: 'space-between',
-    alignItems: 'center', padding: '8px 16px',
+    alignItems: 'center', padding: '12px 20px',
     background: 'transparent', border: 'none',
-    borderBottom: '1px solid rgba(255,255,255,0.04)',
-    color: 'rgba(255,255,255,0.4)', cursor: 'pointer',
-    fontFamily: '"DM Mono", monospace', fontSize: 8,
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
+    color: 'rgba(255,255,255,0.5)', cursor: 'pointer',
+    fontFamily: '"DM Mono", monospace', fontSize: 11,
     letterSpacing: 2, fontWeight: 500, textAlign: 'left' as const,
   },
   sectionMeta: {
-    fontSize: 8, color: 'rgba(255,255,255,0.25)', letterSpacing: 0,
-    display: 'flex', alignItems: 'center', gap: 6,
+    fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: 0,
+    display: 'flex', alignItems: 'center', gap: 8,
   },
-  sectionContent: { padding: '8px 16px 12px' },
+  sectionContent: { padding: '10px 20px 16px' },
   customBadge: {
-    fontSize: 7, padding: '1px 5px', borderRadius: 3,
+    fontSize: 9, padding: '2px 6px', borderRadius: 3,
     background: 'rgba(255,107,53,0.15)', color: '#FF6B35',
   },
   scenarioCard: {
     width: '100%', textAlign: 'left' as const,
-    background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)',
-    borderRadius: 5, padding: '7px 9px', marginBottom: 4,
+    background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: 6, padding: '10px 12px', marginBottom: 6,
     cursor: 'pointer', fontFamily: '"DM Mono", monospace',
-    color: 'rgba(255,255,255,0.55)', transition: 'all 0.2s',
+    color: 'rgba(255,255,255,0.6)', transition: 'all 0.2s',
   },
   scenarioActive: {
     background: 'rgba(255,215,0,0.06)', borderColor: 'rgba(255,215,0,0.25)',
     color: '#FFD700',
   },
-  scenarioName: { fontSize: 10, fontWeight: 500, marginBottom: 2 },
+  scenarioName: { fontSize: 13, fontWeight: 500, marginBottom: 4 },
   scenarioMeta: {
-    display: 'flex', gap: 8, fontSize: 8, color: 'rgba(255,255,255,0.3)', marginBottom: 2,
+    display: 'flex', gap: 10, fontSize: 11, color: 'rgba(255,255,255,0.35)', marginBottom: 3,
   },
-  scenarioUseCase: { fontSize: 8, color: 'rgba(255,255,255,0.25)' },
-  leverRow: { marginBottom: 8 },
+  scenarioUseCase: { fontSize: 11, color: 'rgba(255,255,255,0.3)' },
+  leverRow: { marginBottom: 12 },
   leverHeader: {
-    display: 'flex', justifyContent: 'space-between', marginBottom: 2,
+    display: 'flex', justifyContent: 'space-between', marginBottom: 4,
   },
-  leverLabel: { fontSize: 9, color: 'rgba(255,255,255,0.4)' },
+  leverLabel: { fontSize: 12, color: 'rgba(255,255,255,0.45)' },
   leverVal: {
-    fontSize: 9, color: 'rgba(255,255,255,0.6)', fontVariantNumeric: 'tabular-nums',
+    fontSize: 12, color: 'rgba(255,255,255,0.65)', fontVariantNumeric: 'tabular-nums',
   },
-  disruptionSection: { marginTop: 12 },
+  disruptionSection: { marginTop: 16 },
   disruptionHeader: {
-    fontSize: 7, letterSpacing: 2, color: 'rgba(255,255,255,0.2)', marginBottom: 6,
+    fontSize: 10, letterSpacing: 2, color: 'rgba(255,255,255,0.25)', marginBottom: 8,
   },
-  disruptionGrid: { display: 'flex', flexWrap: 'wrap' as const, gap: 3 },
+  disruptionGrid: { display: 'flex', flexWrap: 'wrap' as const, gap: 5 },
   disruptionBtn: {
-    background: 'rgba(255,60,60,0.05)', border: '1px solid rgba(255,60,60,0.12)',
-    borderRadius: 3, padding: '3px 7px', cursor: 'pointer',
-    fontFamily: '"DM Mono", monospace', fontSize: 8,
-    color: 'rgba(255,150,150,0.6)', transition: 'all 0.2s',
+    background: 'rgba(255,60,60,0.05)', border: '1px solid rgba(255,60,60,0.15)',
+    borderRadius: 4, padding: '5px 10px', cursor: 'pointer',
+    fontFamily: '"DM Mono", monospace', fontSize: 11,
+    color: 'rgba(255,150,150,0.65)', transition: 'all 0.2s',
   },
   runBtn: {
-    width: '100%', marginTop: 12, padding: '8px 0',
+    width: '100%', marginTop: 14, padding: '10px 0',
     background: 'rgba(255,215,0,0.1)', border: '1px solid rgba(255,215,0,0.3)',
-    borderRadius: 5, cursor: 'pointer',
-    fontFamily: '"DM Mono", monospace', fontSize: 10,
+    borderRadius: 6, cursor: 'pointer',
+    fontFamily: '"DM Mono", monospace', fontSize: 12,
     letterSpacing: 2, color: '#FFD700', fontWeight: 500,
     transition: 'all 0.2s',
   },
   actorCard: {
-    padding: '6px 0', borderBottom: '1px solid rgba(255,255,255,0.03)',
+    padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.04)',
     transition: 'opacity 0.3s',
   },
   actorHeader: {
-    display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2,
+    display: 'flex', alignItems: 'center', gap: 8, marginBottom: 3,
   },
-  statusDot: { width: 5, height: 5, borderRadius: '50%', flexShrink: 0 },
-  actorName: { fontSize: 10, color: 'rgba(255,255,255,0.65)' },
+  statusDot: { width: 7, height: 7, borderRadius: '50%', flexShrink: 0 },
+  actorName: { fontSize: 13, color: 'rgba(255,255,255,0.7)' },
   actorMeta: {
-    display: 'flex', gap: 6, alignItems: 'center', paddingLeft: 11,
-    fontSize: 8, color: 'rgba(255,255,255,0.3)', marginBottom: 2,
+    display: 'flex', gap: 8, alignItems: 'center', paddingLeft: 15,
+    fontSize: 11, color: 'rgba(255,255,255,0.35)', marginBottom: 3,
   },
   orbitBadge: {
-    fontSize: 8, padding: '0px 4px', borderRadius: 2, border: '1px solid',
+    fontSize: 10, padding: '1px 6px', borderRadius: 3, border: '1px solid',
   },
   actorUseCase: {
-    fontSize: 8, color: 'rgba(255,255,255,0.25)', paddingLeft: 11,
+    fontSize: 11, color: 'rgba(255,255,255,0.3)', paddingLeft: 15,
   },
   claScenario: {
-    fontSize: 11, color: 'rgba(255,255,255,0.6)', marginBottom: 10,
+    fontSize: 14, color: 'rgba(255,255,255,0.65)', marginBottom: 12,
   },
-  claLevel: { marginBottom: 8 },
+  claLevel: { marginBottom: 10 },
   claHeader: {
-    display: 'flex', alignItems: 'center', gap: 5, marginBottom: 2,
+    display: 'flex', alignItems: 'center', gap: 6, marginBottom: 3,
   },
-  claDot: { width: 5, height: 5, borderRadius: '50%', flexShrink: 0 },
-  claLabel: { fontSize: 8, fontWeight: 500, letterSpacing: 1, color: 'rgba(255,255,255,0.45)' },
-  claDesc: { fontSize: 7, color: 'rgba(255,255,255,0.2)' },
+  claDot: { width: 7, height: 7, borderRadius: '50%', flexShrink: 0 },
+  claLabel: { fontSize: 11, fontWeight: 500, letterSpacing: 1, color: 'rgba(255,255,255,0.5)' },
+  claDesc: { fontSize: 10, color: 'rgba(255,255,255,0.25)' },
   claText: {
-    fontSize: 10, lineHeight: '1.5', color: 'rgba(255,255,255,0.55)', paddingLeft: 10,
+    fontSize: 12, lineHeight: '1.6', color: 'rgba(255,255,255,0.6)', paddingLeft: 13,
   },
   sourcesSection: {
-    marginTop: 10, paddingTop: 8,
-    borderTop: '1px solid rgba(255,255,255,0.04)',
+    marginTop: 12, paddingTop: 10,
+    borderTop: '1px solid rgba(255,255,255,0.06)',
   },
-  sourcesHeader: { fontSize: 7, letterSpacing: 2, color: 'rgba(255,255,255,0.2)', marginBottom: 4 },
-  sourceItem: { fontSize: 8, color: 'rgba(255,255,255,0.3)', marginBottom: 2 },
+  sourcesHeader: { fontSize: 10, letterSpacing: 2, color: 'rgba(255,255,255,0.25)', marginBottom: 6 },
+  sourceItem: { fontSize: 11, color: 'rgba(255,255,255,0.35)', marginBottom: 3 },
   liveDot: {
-    display: 'inline-block', width: 5, height: 5, borderRadius: '50%',
-    marginRight: 6, verticalAlign: 'middle',
+    display: 'inline-block', width: 7, height: 7, borderRadius: '50%',
+    marginRight: 8, verticalAlign: 'middle',
   },
   refreshBtn: {
-    background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: 3, padding: '3px 10px', cursor: 'pointer',
-    fontFamily: '"DM Mono", monospace', fontSize: 9,
-    color: 'rgba(255,255,255,0.4)', marginBottom: 8,
+    background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: 4, padding: '5px 12px', cursor: 'pointer',
+    fontFamily: '"DM Mono", monospace', fontSize: 11,
+    color: 'rgba(255,255,255,0.45)', marginBottom: 10,
   },
   liveRow: {
-    display: 'flex', gap: 8, marginBottom: 3,
-    fontSize: 9, color: 'rgba(255,255,255,0.5)',
+    display: 'flex', gap: 10, marginBottom: 5,
+    fontSize: 12, color: 'rgba(255,255,255,0.55)',
   },
-  liveKey: { color: 'rgba(255,255,255,0.25)', minWidth: 30 },
+  liveKey: { color: 'rgba(255,255,255,0.3)', minWidth: 36 },
   footer: {
-    padding: '8px 16px',
-    borderTop: '1px solid rgba(255,255,255,0.04)',
+    padding: '10px 20px',
+    borderTop: '1px solid rgba(255,255,255,0.06)',
     textAlign: 'center' as const,
   },
-  footerText: { fontSize: 7, color: 'rgba(255,255,255,0.15)', letterSpacing: 1 },
+  footerText: { fontSize: 9, color: 'rgba(255,255,255,0.2)', letterSpacing: 1 },
 };
