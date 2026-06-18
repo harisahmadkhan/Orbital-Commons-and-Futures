@@ -46,7 +46,9 @@ export default function App() {
   const [activeDisruption, setActiveDisruption] = useState<DisruptionEvent | null>(null);
   const [liveData, setLiveData] = useState<LiveDataState>({
     satellite: null,
+    tle: null,
     carbon: null,
+    solarBaselines: null,
     lastFetch: 0,
     isLoading: false,
     error: null,

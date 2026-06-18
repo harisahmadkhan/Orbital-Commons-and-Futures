@@ -1,3 +1,4 @@
+import { altitudeFromTLE } from '../engine/api';
 import type { LiveDataState } from '../engine/api';
 
 interface LiveDataIndicatorProps {
@@ -6,30 +7,64 @@ interface LiveDataIndicatorProps {
 }
 
 export function LiveDataIndicator({ state, onRefresh }: LiveDataIndicatorProps) {
-  const hasAnyData = state.satellite || state.carbon;
+  const hasAnyData = state.satellite || state.tle || state.carbon || state.solarBaselines;
   if (!hasAnyData && !state.isLoading && !state.error) return null;
+
+  const sourceCount =
+    (state.satellite ? 1 : 0) +
+    (state.tle ? 1 : 0) +
+    (state.carbon ? 1 : 0) +
+    (state.solarBaselines ? 1 : 0);
 
   return (
     <div style={styles.container}>
       <div style={styles.header}>
         <span style={styles.dot(state.isLoading ? '#D4A017' : state.error ? '#FF6B35' : '#00CC66')} />
-        <span style={styles.label}>LIVE DATA</span>
+        <span style={styles.label}>LIVE DATA ({sourceCount}/4)</span>
         <button onClick={onRefresh} style={styles.refreshBtn} title="Refresh">↻</button>
       </div>
+
       {state.satellite && (
         <div style={styles.row}>
-          <span style={styles.key}>SAT</span>
+          <span style={styles.key}>N2YO</span>
           <span style={styles.val}>
             {state.satellite.satlatitude.toFixed(1)}°, {state.satellite.satlongitude.toFixed(1)}°
           </span>
         </div>
       )}
+
+      {state.tle && (
+        <div style={styles.row}>
+          <span style={styles.key}>TLE</span>
+          <span style={styles.val}>
+            {state.tle.name} · {altitudeFromTLE(state.tle).toFixed(0)}km · {state.tle.inclination.toFixed(1)}°
+          </span>
+        </div>
+      )}
+
       {state.carbon && (
         <div style={styles.row}>
           <span style={styles.key}>CO₂</span>
-          <span style={styles.val}>{state.carbon.carbonIntensity} gCO₂/kWh</span>
+          <span style={styles.val}>
+            {state.carbon.zone} {state.carbon.carbonIntensity} gCO₂/kWh
+            {state.carbon.isCleanGrid && <span style={styles.cleanBadge}> CLEAN</span>}
+          </span>
         </div>
       )}
+
+      {state.solarBaselines && (
+        <div style={styles.row}>
+          <span style={styles.key}>SOL</span>
+          <span style={styles.val}>
+            {state.solarBaselines.length} regions · avg {
+              (state.solarBaselines.reduce((s, b) => s + b.annualAverage, 0) /
+                state.solarBaselines.length
+              ).toFixed(1)
+            } kWh/m²/day
+          </span>
+        </div>
+      )}
+
       {state.error && (
         <div style={{ ...styles.row, color: 'rgba(255, 107, 53, 0.7)' }}>
           {state.error}
@@ -51,7 +86,7 @@ const styles = {
     padding: '6px 10px',
     fontFamily: '"DM Mono", monospace',
     fontSize: 9,
-    minWidth: 140,
+    minWidth: 170,
     zIndex: 10,
   },
   header: {
@@ -86,14 +121,19 @@ const styles = {
     display: 'flex' as const,
     gap: 6,
     color: 'rgba(255, 255, 255, 0.5)',
-    marginBottom: 1,
+    marginBottom: 2,
   },
   key: {
     color: 'rgba(255, 255, 255, 0.3)',
-    minWidth: 24,
+    minWidth: 28,
   },
   val: {
     color: 'rgba(255, 255, 255, 0.6)',
     fontVariantNumeric: 'tabular-nums' as const,
+  },
+  cleanBadge: {
+    fontSize: 7,
+    color: '#00CC66',
+    letterSpacing: 1,
   },
 };
