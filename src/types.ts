@@ -82,6 +82,18 @@ export const ORBIT_CONFIGS: Record<OrbitType, OrbitalConfig> = {
   },
 };
 
+export type DisruptionEvent =
+  | 'solar_storm'
+  | 'kessler_cascade'
+  | 'laser_interference'
+  | 'starship_delay'
+  | 'grid_blackout';
+
+export interface DisruptionState {
+  active: DisruptionEvent | null;
+  remainingDuration: number;
+}
+
 export interface SimulationState {
   time: number;
   orbitType: OrbitType;
@@ -91,7 +103,43 @@ export interface SimulationState {
   inEclipse: boolean;
   coverageActive: boolean;
   metrics: SimMetrics;
+  activeScenarioId: string | null;
+  year: number;
+  leverValues: ScenarioLeverValues;
+  disruption: DisruptionState;
 }
+
+export interface ThreeHorizons {
+  id: 'H1' | 'H2' | 'H3';
+  label: string;
+  yearRange: [number, number];
+  description: string;
+  color: string;
+}
+
+export const THREE_HORIZONS: ThreeHorizons[] = [
+  {
+    id: 'H1',
+    label: 'Experimental',
+    yearRange: [2025, 2027],
+    description: 'First orbital DC satellites, proof-of-concept missions, early investors',
+    color: '#4A90D9',
+  },
+  {
+    id: 'H2',
+    label: 'Transition',
+    yearRange: [2027, 2033],
+    description: 'Competing constellations, regulatory frameworks forming, bandwidth scaling',
+    color: '#D4A017',
+  },
+  {
+    id: 'H3',
+    label: 'New Regime',
+    yearRange: [2033, 2040],
+    description: 'Orbital compute at material share, new governance questions, commons tensions',
+    color: '#FF6B35',
+  },
+];
 
 export interface SimMetrics {
   solar_kwh: number;
