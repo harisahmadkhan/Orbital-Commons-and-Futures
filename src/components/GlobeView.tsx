@@ -95,18 +95,73 @@ export function GlobeView({ actors, year, orbitType, tle, isSimulating, simulati
     rimLight.position.set(-3, 1, -2);
     scene.add(rimLight);
 
-    const earthGeo = new THREE.SphereGeometry(EARTH_RADIUS, 64, 64);
-    const earthMat = new THREE.MeshPhongMaterial({
-      color: 0x1a3a5c,
-      emissive: 0x0a1628,
-      emissiveIntensity: 0.3,
-      specular: 0x333344,
-      shininess: 15,
+    const loader = new THREE.TextureLoader();
+    const earthGeo = new THREE.SphereGeometry(EARTH_RADIUS, 96, 96);
+
+    const dayTexture = loader.load('/textures/earth_day.jpg');
+    const nightTexture = loader.load('/textures/earth_night.jpg');
+    const bumpTexture = loader.load('/textures/earth_topology.png');
+
+    dayTexture.colorSpace = THREE.SRGBColorSpace;
+    nightTexture.colorSpace = THREE.SRGBColorSpace;
+
+    const earthMat = new THREE.ShaderMaterial({
+      uniforms: {
+        dayMap: { value: dayTexture },
+        nightMap: { value: nightTexture },
+        bumpMap: { value: bumpTexture },
+        sunDirection: { value: new THREE.Vector3(1, 0.3, 0.5).normalize() },
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        varying vec3 vNormal;
+        varying vec3 vWorldPosition;
+        void main() {
+          vUv = uv;
+          vNormal = normalize(normalMatrix * normal);
+          vec4 worldPos = modelMatrix * vec4(position, 1.0);
+          vWorldPosition = worldPos.xyz;
+          gl_Position = projectionMatrix * viewMatrix * worldPos;
+        }
+      `,
+      fragmentShader: `
+        uniform sampler2D dayMap;
+        uniform sampler2D nightMap;
+        uniform sampler2D bumpMap;
+        uniform vec3 sunDirection;
+        varying vec2 vUv;
+        varying vec3 vNormal;
+        varying vec3 vWorldPosition;
+        void main() {
+          vec3 normal = normalize(vNormal);
+          float sunDot = dot(normal, sunDirection);
+          float dayFactor = smoothstep(-0.15, 0.25, sunDot);
+
+          vec4 dayColor = texture2D(dayMap, vUv);
+          vec4 nightColor = texture2D(nightMap, vUv);
+
+          // Bump influence on lighting
+          float bump = texture2D(bumpMap, vUv).r;
+          float bumpLight = 0.9 + bump * 0.15;
+
+          vec4 finalColor = mix(nightColor * 1.2, dayColor * bumpLight, dayFactor);
+
+          // Specular highlight on water (dark areas of bump map)
+          float specular = pow(max(0.0, dot(reflect(-sunDirection, normal), normalize(-vWorldPosition))), 20.0);
+          specular *= (1.0 - bump) * 0.4 * dayFactor;
+          finalColor.rgb += vec3(specular);
+
+          // Atmospheric rim on day side
+          float rim = 1.0 - max(0.0, dot(normal, normalize(-vWorldPosition)));
+          finalColor.rgb += vec3(0.3, 0.5, 1.0) * pow(rim, 3.0) * 0.15 * dayFactor;
+
+          gl_FragColor = finalColor;
+        }
+      `,
     });
+
     const earth = new THREE.Mesh(earthGeo, earthMat);
     scene.add(earth);
-
-    addEarthDetails(earth);
 
     const atmosGeo = new THREE.SphereGeometry(EARTH_RADIUS * 1.015, 64, 64);
     const atmosMat = new THREE.MeshPhongMaterial({
@@ -232,11 +287,17 @@ export function GlobeView({ actors, year, orbitType, tle, isSimulating, simulati
       s.camera.lookAt(0, 0, 0);
 
       const time = Date.now() * 0.001;
-      s.sunLight.position.set(
+      const sunPos = new THREE.Vector3(
         Math.cos(time * 0.05) * 5,
         2,
         Math.sin(time * 0.05) * 5
       );
+      s.sunLight.position.copy(sunPos);
+
+      const earthMat = s.earth.material as THREE.ShaderMaterial;
+      if (earthMat.uniforms?.sunDirection) {
+        earthMat.uniforms.sunDirection.value.copy(sunPos).normalize();
+      }
 
       for (const obj of s.orbitals) {
         const angle = time * obj.speed + obj.phase;
@@ -419,70 +480,6 @@ export function GlobeView({ actors, year, orbitType, tle, isSimulating, simulati
       <div ref={tooltipRef} style={styles.tooltip} />
     </div>
   );
-}
-
-function addEarthDetails(earth: THREE.Mesh) {
-  const continents = [
-    { lat: 48, lon: 10, size: 0.15 },
-    { lat: 35, lon: -100, size: 0.18 },
-    { lat: -15, lon: -55, size: 0.16 },
-    { lat: 0, lon: 25, size: 0.2 },
-    { lat: 55, lon: 80, size: 0.22 },
-    { lat: -25, lon: 135, size: 0.12 },
-    { lat: 35, lon: 105, size: 0.14 },
-    { lat: 20, lon: 78, size: 0.1 },
-  ];
-
-  for (const c of continents) {
-    const phi = (90 - c.lat) * Math.PI / 180;
-    const theta = (c.lon + 180) * Math.PI / 180;
-    const x = -Math.sin(phi) * Math.cos(theta) * EARTH_RADIUS * 1.001;
-    const y = Math.cos(phi) * EARTH_RADIUS * 1.001;
-    const z = Math.sin(phi) * Math.sin(theta) * EARTH_RADIUS * 1.001;
-
-    const geo = new THREE.CircleGeometry(c.size, 16);
-    const mat = new THREE.MeshPhongMaterial({
-      color: 0x1a4a2a,
-      emissive: 0x0a2a1a,
-      emissiveIntensity: 0.2,
-      transparent: true,
-      opacity: 0.5,
-      side: THREE.DoubleSide,
-      depthWrite: false,
-    });
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.position.set(x, y, z);
-    mesh.lookAt(0, 0, 0);
-    earth.add(mesh);
-  }
-
-  const gridMat = new THREE.LineBasicMaterial({ color: 0x1a3a5c, transparent: true, opacity: 0.1 });
-  for (let lat = -60; lat <= 60; lat += 30) {
-    const phi = (90 - lat) * Math.PI / 180;
-    const r = Math.sin(phi) * EARTH_RADIUS * 1.002;
-    const y = Math.cos(phi) * EARTH_RADIUS * 1.002;
-    const pts: THREE.Vector3[] = [];
-    for (let i = 0; i <= 64; i++) {
-      const theta = (i / 64) * Math.PI * 2;
-      pts.push(new THREE.Vector3(Math.cos(theta) * r, y, Math.sin(theta) * r));
-    }
-    const geo = new THREE.BufferGeometry().setFromPoints(pts);
-    earth.add(new THREE.Line(geo, gridMat));
-  }
-  for (let lon = 0; lon < 360; lon += 30) {
-    const theta = lon * Math.PI / 180;
-    const pts: THREE.Vector3[] = [];
-    for (let i = 0; i <= 64; i++) {
-      const phi = (i / 64) * Math.PI;
-      pts.push(new THREE.Vector3(
-        Math.sin(phi) * Math.cos(theta) * EARTH_RADIUS * 1.002,
-        Math.cos(phi) * EARTH_RADIUS * 1.002,
-        Math.sin(phi) * Math.sin(theta) * EARTH_RADIUS * 1.002
-      ));
-    }
-    const geo = new THREE.BufferGeometry().setFromPoints(pts);
-    earth.add(new THREE.Line(geo, gridMat));
-  }
 }
 
 function createStars(): THREE.Points {
