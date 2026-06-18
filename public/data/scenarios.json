@@ -1,0 +1,167 @@
+[
+  {
+    "id": "orbital-proliferation",
+    "name": "Orbital Proliferation",
+    "time_horizon": "2030–2035",
+    "description": "Launch costs fall, ground grids stay carbon-intensive. Fast orbital expansion; bandwidth (not energy) becomes the binding constraint; ground station ownership becomes the new chokepoint.",
+    "dominant_use_case": "General cloud compute migration to orbit",
+    "launch_economics": "low",
+    "grid_decarbonization": "slow",
+    "lever_values": {
+      "launch_cost_per_kg": 150,
+      "grid_carbon_intensity": 450,
+      "ai_compute_demand_growth": 35,
+      "bandwidth_capacity_gbps": 100,
+      "geopolitical_cooperation": 0.7
+    },
+    "cla_framing": {
+      "litany": "Orbital compute is cheaper and cleaner than ground-based alternatives",
+      "system": "Launch cost reduction enables orbital infrastructure build-out faster than grid decarbonization",
+      "worldview": "Technological progress solves environmental problems through displacement rather than reform",
+      "metaphor": "The frontier — new territory absorbs the externalities the old territory couldn't handle"
+    },
+    "informed_by": [
+      "Starcloud cost projections",
+      "Starship trajectory",
+      "IEA grid-decarbonization-lag data"
+    ]
+  },
+  {
+    "id": "grid-transition-trap",
+    "name": "The Grid Transition Trap",
+    "time_horizon": "2030–2035",
+    "description": "Launch costs fall, but ground grids decarbonize fast. Orbital's environmental case weakens in clean-grid regions; niches into satellite-data processing rather than general cloud.",
+    "dominant_use_case": "Satellite data processing niche",
+    "launch_economics": "low",
+    "grid_decarbonization": "fast",
+    "lever_values": {
+      "launch_cost_per_kg": 150,
+      "grid_carbon_intensity": 120,
+      "ai_compute_demand_growth": 25,
+      "bandwidth_capacity_gbps": 100,
+      "geopolitical_cooperation": 0.8
+    },
+    "cla_framing": {
+      "litany": "Ground data centers are already going green — orbital compute solves a problem that's disappearing",
+      "system": "Grid decarbonization outpaces orbital build-out, removing the carbon arbitrage",
+      "worldview": "Incremental reform of existing systems beats revolutionary displacement",
+      "metaphor": "The race — two solutions running toward the same finish line, one already closer"
+    },
+    "informed_by": [
+      "ASCEND lifecycle-emissions findings",
+      "IEA renewables trajectory",
+      "Hyperscaler PPA strategy",
+      "Nordic hydropower-cooled DC precedent"
+    ]
+  },
+  {
+    "id": "sovereignty-wars",
+    "name": "Compute Sovereignty Wars",
+    "time_horizon": "2030–2040",
+    "description": "Geopolitical fragmentation produces parallel constellations with no cross-constellation data flow. Spectrum and ground-station rights become diplomatic terrain.",
+    "dominant_use_case": "Sovereign national/bloc compute infrastructure",
+    "launch_economics": "medium",
+    "grid_decarbonization": "medium",
+    "lever_values": {
+      "launch_cost_per_kg": 500,
+      "grid_carbon_intensity": 300,
+      "ai_compute_demand_growth": 30,
+      "bandwidth_capacity_gbps": 50,
+      "geopolitical_cooperation": 0.2
+    },
+    "cla_framing": {
+      "litany": "Nations are building their own orbital compute to avoid dependency on foreign infrastructure",
+      "system": "Data sovereignty regulation fragments the orbital commons into national enclaves",
+      "worldview": "Infrastructure is power — who controls the compute layer controls the information layer",
+      "metaphor": "The enclosure — the orbital commons fenced into sovereign parcels"
+    },
+    "informed_by": [
+      "ASCEND's explicit data-sovereignty mandate",
+      "EU AI Act/localization trends",
+      "NTT/SKY Perfect JSAT's state-linked posture"
+    ]
+  },
+  {
+    "id": "bandwidth-ceiling",
+    "name": "The Bandwidth Ceiling",
+    "time_horizon": "2028–2032",
+    "description": "Orbital compute scales faster than ground-station laser infrastructure. Satellite-data-processing model holds; general cloud via orbital stalls.",
+    "dominant_use_case": "On-orbit satellite data processing",
+    "launch_economics": "low",
+    "grid_decarbonization": "medium",
+    "lever_values": {
+      "launch_cost_per_kg": 200,
+      "grid_carbon_intensity": 300,
+      "ai_compute_demand_growth": 40,
+      "bandwidth_capacity_gbps": 20,
+      "geopolitical_cooperation": 0.6
+    },
+    "cla_framing": {
+      "litany": "We can put compute in space but can't get enough data up and down",
+      "system": "Ground station infrastructure lags orbital deployment, creating a bottleneck at the Earth-space boundary",
+      "worldview": "Every infrastructure revolution relocates its bottleneck rather than eliminating it",
+      "metaphor": "The hourglass — the narrow neck between two expanding chambers"
+    },
+    "informed_by": [
+      "Starcloud's process-onboard model",
+      "NASA TBIRD demo limits",
+      "Kepler Communications relay network scope"
+    ]
+  },
+  {
+    "id": "debris-break",
+    "name": "The Debris Break",
+    "time_horizon": "2028–2032",
+    "description": "A high-profile LEO collision triggers an insurance/regulatory freeze on orbital DC expansion. GEO and lunar assets above the debris band become relatively more attractive.",
+    "dominant_use_case": "GEO/Lunar compute (LEO frozen)",
+    "launch_economics": "high",
+    "grid_decarbonization": "medium",
+    "lever_values": {
+      "launch_cost_per_kg": 2000,
+      "grid_carbon_intensity": 300,
+      "ai_compute_demand_growth": 20,
+      "bandwidth_capacity_gbps": 40,
+      "geopolitical_cooperation": 0.5
+    },
+    "cla_framing": {
+      "litany": "A collision event halted orbital data center expansion",
+      "system": "Kessler-adjacent risk reprices LEO insurance and triggers regulatory freeze",
+      "worldview": "Commons tragedies recur — the orbital commons is no exception to overexploitation",
+      "metaphor": "The shatter — one break cascades through the shared space"
+    },
+    "informed_by": [
+      "ESA Space Debris Office statistics",
+      "Cosmos 2251–Iridium 33 precedent",
+      "LeoLabs tracking data",
+      "Lonestar's lunar positioning"
+    ]
+  },
+  {
+    "id": "in-orbit-economy",
+    "name": "The In-Orbit Economy",
+    "time_horizon": "2027–2030",
+    "description": "Onboard processing of satellite-generated data becomes mainstream; raw data rarely touches the ground. The least speculative scenario.",
+    "dominant_use_case": "On-orbit EO/climate/maritime data processing",
+    "launch_economics": "medium",
+    "grid_decarbonization": "medium",
+    "lever_values": {
+      "launch_cost_per_kg": 400,
+      "grid_carbon_intensity": 350,
+      "ai_compute_demand_growth": 25,
+      "bandwidth_capacity_gbps": 60,
+      "geopolitical_cooperation": 0.7
+    },
+    "cla_framing": {
+      "litany": "Satellites process their own data now — only insights come down",
+      "system": "Edge computing logic applied at orbital scale eliminates the downlink bottleneck for sensor data",
+      "worldview": "Processing should happen where data is generated, not where infrastructure was historically built",
+      "metaphor": "The refinery — raw ore processed at the mine, only refined product shipped"
+    },
+    "informed_by": [
+      "Starcloud's stated business model",
+      "HPE Spaceborne Computer precedent",
+      "ESA Φ-sat",
+      "Planet Labs/Satellogic onboard ML roadmaps"
+    ]
+  }
+]

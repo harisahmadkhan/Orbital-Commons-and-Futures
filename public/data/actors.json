@@ -1,0 +1,81 @@
+[
+  {
+    "id": "starcloud",
+    "name": "Starcloud (f.k.a. Lumen Orbit)",
+    "orbit": "LEO",
+    "altitude_km": 315,
+    "status": "operational",
+    "launch_date": "2025-11-02",
+    "planned_date": "2026-10-01",
+    "compute_capacity": "H100 GPU per satellite",
+    "use_case": "AI processing, edge inference for satellite data",
+    "funding_status": "Funded",
+    "source": "Starcloud whitepaper",
+    "orbital_params": { "inclination_deg": 97.5, "type": "sun-synchronous" }
+  },
+  {
+    "id": "axiom",
+    "name": "Axiom Space (ODC nodes)",
+    "orbit": "LEO",
+    "altitude_km": 408,
+    "status": "planned",
+    "launch_date": null,
+    "planned_date": "2025-12-01",
+    "compute_capacity": "Two ODC nodes",
+    "use_case": "Secure cloud compute/storage for gov & commercial",
+    "funding_status": "Funded",
+    "source": "Axiom Space press releases"
+  },
+  {
+    "id": "blue-origin",
+    "name": "Blue Origin (Blue Ring)",
+    "orbit": "GEO",
+    "altitude_km": 35786,
+    "status": "in_development",
+    "launch_date": null,
+    "planned_date": null,
+    "compute_capacity": "Large-scale geosynchronous",
+    "use_case": "Large-scale geosynchronous compute",
+    "funding_status": "Self-funded",
+    "source": "Blue Origin announcements"
+  },
+  {
+    "id": "lonestar",
+    "name": "Lonestar Data Holdings",
+    "orbit": "Lunar",
+    "altitude_km": 384400,
+    "status": "planned",
+    "launch_date": null,
+    "planned_date": "2027-01-01",
+    "compute_capacity": "6 satellites, cold storage",
+    "use_case": "Cold/archival data storage",
+    "funding_status": "$120M contract",
+    "source": "Lonestar press releases"
+  },
+  {
+    "id": "ntt-jsat",
+    "name": "NTT / SKY Perfect JSAT",
+    "orbit": "LEO",
+    "altitude_km": 550,
+    "status": "planned",
+    "launch_date": null,
+    "planned_date": null,
+    "compute_capacity": "TBD",
+    "use_case": "Compute and storage satellites",
+    "funding_status": "State-linked",
+    "source": "NTT/SKY Perfect JSAT announcements"
+  },
+  {
+    "id": "ascend",
+    "name": "ASCEND (Thales Alenia Space, EU)",
+    "orbit": "LEO",
+    "altitude_km": 1400,
+    "status": "concept",
+    "launch_date": null,
+    "planned_date": "2036-01-01",
+    "compute_capacity": "1GW by 2050",
+    "use_case": "EU digital sovereignty + net-zero",
+    "funding_status": "EU Horizon funded (proof of concept)",
+    "source": "ASCEND feasibility study, Thales Alenia Space"
+  }
+]
